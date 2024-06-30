@@ -4,14 +4,16 @@ import { auth } from "@clerk/nextjs";
 import Image from "next/image";
 
 const Orders = async () => {
+  // get userId
   const { userId } = auth();
+  // get user orders
   const orders = await getOrders(userId as string);
 
-  console.log(orders[0].products);
-
+  // if user has orders
   return (
     <div className="px-10 py-5 max-sm:px-3">
       <p className="text-heading3-bold my-10">Your Orders</p>
+      {/* if order is empty or length of order is 0 */}
       {!orders ||
         (orders.length === 0 && (
           <p className="text-body-bold my-5">You have no orders yet.</p>
@@ -31,7 +33,7 @@ const Orders = async () => {
               {order.products.map((orderItem: OrderItemType) => (
                 <div className="flex gap-4">
                   <Image
-                    src={orderItem.product.media[0]}
+                    src={orderItem.product?.media[0]}
                     alt={orderItem.product.title}
                     width={100}
                     height={100}

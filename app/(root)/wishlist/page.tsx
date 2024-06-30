@@ -34,8 +34,7 @@ const Wishlist = () => {
     setLoading(true)
 
     if (!signedInUser) return
-
-    const wishlistProducts = await Promise.all(signedInUser.wishlist.map(async (productId) => {
+    const wishlistProducts = await Promise.all(signedInUser.wishlist?.map(async (productId) => {
       const res = await getProductDetails(productId)
       return res
     }))
